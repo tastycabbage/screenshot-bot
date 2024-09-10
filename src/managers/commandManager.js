@@ -28,7 +28,7 @@ async function registerCommands() {
             data = [];
         for(let command of commands.values()) data.push(command.data.toJSON());
 
-        let output = await rest.put(Routes.applicationCommands(process.env.client), { body: data });
+        let output = await rest.put(Routes.applicationGuildCommands(process.env.client, "552502772738555934"), { body: data });
         console.log(`Successfully reloaded ${output.length} commands`);
     } catch (e) { console.error(e) }
 }

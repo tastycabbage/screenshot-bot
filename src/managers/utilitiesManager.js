@@ -1,5 +1,7 @@
 function random(min, max) { return Math.floor(Math.random() * (max - min + 1)) + min }
 
+function sleep(ms) { return new Promise(resolve => setTimeout(resolve, ms)) }
+
 function randomColor() { return [utils.random(0, 255), utils.random(0, 255), utils.random(0, 255)] }
 
 function hexToRgb(hex) {
@@ -26,4 +28,13 @@ const format = {
     strikethrough(string) { return "~~" + string + "~~" }
 }
 
-export { random, randomColor, hexToRgb, rgbToHex, format};
+function addAlphaToData(data, imageData, alpha = 255) {
+	for(let i = 0, i2 = 0; i < imageData.data.length;) imageData.data[i++] = i % 4 === 0 ? alpha : data[i2++];
+	return imageData;
+}
+
+function absMod(n1, n2) {
+	return ((n1 % n2) + n2) % n2;
+}
+
+export { random, sleep, randomColor, hexToRgb, rgbToHex, format, addAlphaToData, absMod};

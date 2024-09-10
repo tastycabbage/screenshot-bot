@@ -1,17 +1,16 @@
 import { Client as DCClient, IntentsBitField, Events } from "discord.js";
-import { Client as OWOPClient } from "owop-js";
+import { Client as OWOPClient } from "better-owop-js";
 import { config } from "dotenv"; config();
 
 import { handleCommand } from "./src/handlers/interactionHandler.js"
 
 import { registerCommands } from "./src/managers/commandManager.js";
-import { format } from "./src/managers/utilitiesManager.js";
 
 const OWOPBot = new OWOPClient({
-    world: "kapyctaxyulo",
+    world: "main",
     controller: true,
     reconnect: true,
-    noLog: true
+    log: false
 });
 
 OWOPBot.once("join", (world) => {
@@ -24,7 +23,7 @@ await registerCommands();
 
 DCBot.on(Events.InteractionCreate, async (interaction) => {
     if(interaction.isChatInputCommand()) {
-        await handleCommand(interaction);
+        await handleCommand(interaction, OWOPBot);
     }
 });
 
