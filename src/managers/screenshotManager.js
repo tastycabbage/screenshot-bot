@@ -1,11 +1,11 @@
 import { promisify } from "node:util";
-import { writeFile, existsSync, mkdirSync } from "node:fs";
+import { writeFile as _writeFile, existsSync, mkdirSync } from "node:fs";
 
 import { createCanvas } from "canvas";
 
 import { sleep, absMod, addAlphaToData } from "./utilitiesManager.js";
 
-const file = promisify(writeFile);
+const writeFile = promisify(_writeFile);
 
 export class Screenshot {
 	constructor(bot, imagesPath, chunksBreak, sleepTimeout) {
@@ -74,9 +74,9 @@ export class Screenshot {
 		return canvas;
 	}
 	async save(canvas) {
-		let fileName = `${this.imagesPath}${Date.now()}.png`;
+		let fileName = `${Date.now()}.png`;
 
-		await file(fileName, canvas.toBuffer());
+		await writeFile(this.imagesPath + fileName, canvas.toBuffer());
 
 		return fileName;
 	}
