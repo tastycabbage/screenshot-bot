@@ -5,6 +5,7 @@ import { config } from "dotenv"; config();
 import { handleCommand } from "./src/handlers/interactionHandler.js"
 
 import { registerCommands } from "./src/managers/commandManager.js";
+import { Screenshot } from "./src/managers/screenshotManager.js";
 
 const OWOPBot = new OWOPClient({
     world: "main",
@@ -16,6 +17,8 @@ const OWOPBot = new OWOPClient({
 OWOPBot.once("join", (world) => {
     console.log(`OWOP Bot joined in "${world}" world`);
 })
+
+OWOPBot.screenshot = new Screenshot(OWOPBot, process.cwd() + `\\archive\\`, 15000, 1000)
 
 const DCBot = new DCClient({ intents: new IntentsBitField(121823) });
 

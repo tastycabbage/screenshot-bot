@@ -74,9 +74,9 @@ export class Screenshot {
 		return canvas;
 	}
 	async save(canvas) {
-		let fileName = `${Date.now()}.png`;
+		let fileName = `${this.imagesPath}${Date.now()}.png`;
 
-		await writeFile(this.imagesPath + fileName, canvas.toBuffer());
+		await writeFile(fileName, canvas.toBuffer());
 
 		return fileName;
 	}
